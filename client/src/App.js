@@ -1,4 +1,9 @@
 import "./App.css";
+import io from "socket.io-client";
+import { URLDEV } from "./utils/const.js";
+
+// se le pasa la direccion del servidor websocket
+const socket = io(URLDEV);
 
 function App() {
   return (
