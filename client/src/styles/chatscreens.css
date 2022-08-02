@@ -9,6 +9,11 @@
   gap: 1rem;
 }
 
+.container-chat h1{
+    color: #ffffff;
+    font-size: 3rem;
+}
+
 .container-body-chat {
   background-color: #607eaa;
   border-radius: 0.4rem;
