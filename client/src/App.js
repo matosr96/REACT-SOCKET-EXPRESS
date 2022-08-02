@@ -9,16 +9,22 @@ const socket = io(URLDEV);
 
 function App() {
   const [message, setMessage] = useState("");
+  const [messages, setMessages] = useState([]);
 
   const handlesubmit = (e) => {
     e.preventDefault();
     socket.emit("message", message);
+    const newMessage = {
+      body: message,
+      from: "Me",
+    };
+    setMessages([newMessage, ...messages]);
     setMessage("");
   };
 
   useEffect(() => {
     const receiveMessage = (message) => {
-      console.log(message);
+      setMessages([message, ...messages]);
     };
 
     socket.on("message", receiveMessage);
@@ -26,7 +32,7 @@ function App() {
     return () => {
       socket.off("message", receiveMessage);
     };
-  }, []);
+  }, [messages]);
 
   return (
     <div className="App">
@@ -38,6 +44,14 @@ function App() {
         />
         <button>send</button>
       </form>
+
+      {messages.map((mes, index) => (
+        <div key={index}>
+          <p>
+            {mes.from} : {mes.body}
+          </p>
+        </div>
+      ))}
     </div>
   );
 }

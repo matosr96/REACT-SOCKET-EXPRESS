@@ -30,9 +30,11 @@ io.on("connection", (socket) => {
   //esta es la funcion que escucha del evento del front llamado message
   //recive lo que le enviamos del front
   socket.on("message", (message) => {
-    console.log("mensaje del backend", message);
     //aqui reenvia el mensaje que se revive del front al resto de clientes
-    socket.broadcast.emit("message", message);
+    socket.broadcast.emit("message", {
+      body: message,
+      from: socket.id,
+    });
   });
 });
 app.use(cors());
